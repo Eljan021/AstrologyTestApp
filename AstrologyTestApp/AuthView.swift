@@ -12,7 +12,8 @@ struct AuthView: View {
         ZStack{
             //            MysticalAstrologyView()// Background
             //                .ignoresSafeArea(.all)
-            CalmMysticBackgroundView()
+//            CalmMysticBackgroundView()
+            BreathingAuraBackground()
             TopView()// Frontground
             VStack{
                 Spacer()
@@ -22,6 +23,54 @@ struct AuthView: View {
         }
     }
 }
+
+// BreathingAura
+struct BreathingAuraBackground: View {
+    @State private var breathe = false
+
+    var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+
+            // Büyük mor aura
+            Circle()
+                .fill(Color.purple.opacity(0.85))
+                .frame(width: 600, height: 600)
+                .blur(radius: 140)
+                .scaleEffect(breathe ? 1.15 : 0.85) // gözle fark edilir
+                .opacity(breathe ? 1.0 : 0.6)
+                .animation(
+                    .easeInOut(duration: 10).repeatForever(autoreverses: true),
+                    value: breathe
+                )
+
+            // İkinci indigo katman
+            Circle()
+                .fill(Color.indigo.opacity(0.18))
+                .frame(width: 420, height: 420)
+                .blur(radius: 120)
+                .offset(x: -120, y: 160)
+                .scaleEffect(breathe ? 1.12 : 0.88)
+                .opacity(breathe ? 0.9 : 0.5)
+                .animation(
+                    .easeInOut(duration: 14).repeatForever(autoreverses: true),
+                    value: breathe
+                )
+
+            // Hafif yıldız hissi
+            Circle()
+                .fill(Color.white.opacity(0.06))
+                .frame(width: 260, height: 260)
+                .blur(radius: 90)
+                .offset(x: 160, y: -180)
+        }
+        .onAppear {
+            breathe.toggle() // Tek toggle, tüm animasyonlar bu state üzerinden çalışıyor
+        }
+    }
+}
+
+
 
 
 struct CalmMysticBackgroundView: View {
@@ -156,7 +205,7 @@ struct TopView: View {
         VStack{
             ZStack{
                 Circle()
-                    .fill(Color.white.opacity(0.18))
+                    .fill(Color.purple.opacity(0.18))
                     .frame(width: 220, height: 220)
                     .blur(radius: 40)
                 
@@ -164,7 +213,7 @@ struct TopView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 274,height: 124)
-                    .shadow(color: .purple.opacity(0.8), radius: 20)
+                    .shadow(color: .white.opacity(0.8), radius: 20)
             }
             .padding(.top, 60)
                 Spacer()
