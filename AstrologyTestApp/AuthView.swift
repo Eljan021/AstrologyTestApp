@@ -32,19 +32,19 @@ struct BreathingAuraBackground: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
-            // Büyük mor aura
+            // Big purple aura
             Circle()
                 .fill(Color.purple.opacity(0.85))
                 .frame(width: 600, height: 600)
                 .blur(radius: 140)
-                .scaleEffect(breathe ? 1.15 : 0.85) // gözle fark edilir
+                .scaleEffect(breathe ? 1.15 : 0.85)
                 .opacity(breathe ? 1.0 : 0.6)
                 .animation(
                     .easeInOut(duration: 10).repeatForever(autoreverses: true),
                     value: breathe
                 )
 
-            // İkinci indigo katman
+            // Two layer
             Circle()
                 .fill(Color.indigo.opacity(0.18))
                 .frame(width: 420, height: 420)
@@ -57,7 +57,7 @@ struct BreathingAuraBackground: View {
                     value: breathe
                 )
 
-            // Hafif yıldız hissi
+            // Half stare feel
             Circle()
                 .fill(Color.white.opacity(0.06))
                 .frame(width: 260, height: 260)
@@ -65,7 +65,7 @@ struct BreathingAuraBackground: View {
                 .offset(x: 160, y: -180)
         }
         .onAppear {
-            breathe.toggle() // Tek toggle, tüm animasyonlar bu state üzerinden çalışıyor
+            breathe.toggle() // One toggle, all animations work here
         }
     }
 }
@@ -78,7 +78,7 @@ struct CalmMysticBackgroundView: View {
 
     var body: some View {
         ZStack {
-            // Ana gradient
+            // First gradient
             LinearGradient(
                 colors: [
                     Color.black,
@@ -94,7 +94,7 @@ struct CalmMysticBackgroundView: View {
                 value: animate
             )
 
-            // Soft ışık katmanı
+            // Soft Light
             Circle()
                 .fill(Color.purple.opacity(0.18))
                 .frame(width: 420, height: 420)
@@ -105,7 +105,7 @@ struct CalmMysticBackgroundView: View {
                     value: animate
                 )
 
-            // İkinci ışık
+            // Two light
             Circle()
                 .fill(Color.indigo.opacity(0.15))
                 .frame(width: 300, height: 300)
@@ -181,7 +181,7 @@ struct MysticalAstrologyView: View {
                     value: rotateInner
                 )
 
-            // Nabız efekti (mistik aura)
+            // (mistik aura)
             Circle()
                 .fill(Color.purple.opacity(0.25))
                 .frame(width: pulse ? 60 : 40)
@@ -209,13 +209,13 @@ struct TopView: View {
                     .frame(width: 220, height: 220)
                     .blur(radius: 40)
                 
-                Image("auraly")
+                Image("auraly")// Logo image code
                     .resizable()
                     .scaledToFit()
                     .frame(width: 274,height: 124)
                     .shadow(color: .white.opacity(0.8), radius: 20)
             }
-            .padding(.top, 60)
+            .padding(.top, 60)// Location logo
                 Spacer()
                 
             
@@ -231,47 +231,67 @@ struct TopView: View {
 //Bottom view
 struct BottomAuthView: View {
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 10) {
 
-            // 🍎 Apple ile giriş
+            // Apple with entry
             Button(action: {
                 print("Apple Login")
             }) {
                 HStack {
                     Image(systemName: "applelogo")
-                    Text("Apple ile Giriş Yap")
+                    Text("Apple with entry")
                         .fontWeight(.semibold)
                 }
                 .foregroundColor(.black)
-                .frame(maxWidth: .infinity, maxHeight: 52)
-                .background(Color.white)
-                .cornerRadius(14)
+                .frame(maxWidth: 390, maxHeight: 50)
+                .background(Color.clear)
+                .overlay(RoundedRectangle(cornerRadius: 60)
+                    .stroke(Color.black, lineWidth: 0.75))
             }
 
-            // 🔵 Google ile giriş
+            // Google with entry
             Button(action: {
                 print("Google Login")
             }) {
                 HStack {
-                    Image("google") // asset’te google icon olmalı
+                    Image("google") // asset’te google icon
                         .resizable()
                         .frame(width: 20, height: 20)
 
-                    Text("Google ile Giriş Yap")
+                    Text("Google with entry")
                         .fontWeight(.semibold)
                 }
                 .foregroundColor(.black)
-                .frame(maxWidth: .infinity, maxHeight: 52)
-                .background(Color.white)
-                .cornerRadius(14)
+                .frame(maxWidth: 390, maxHeight: 50)
+                .background(Color.clear)
+                .overlay(RoundedRectangle(cornerRadius: 60)
+                    .stroke(Color.black, lineWidth: 0.75))
             }
+            
+            // --- OR line
+                        HStack {
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.4))
+                                .frame(height: 1)
+                                .frame(width: 150)
+                            Text("və ya")
+                                .font(.custom("Poppins-SemiBold", size: 20).bold())
+                                .foregroundColor(.gray)
+                                .padding(.horizontal, 8)
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.4))
+                                .frame(height: 1)
+                                .frame(width: 150)
+                        }
+                        .padding(.horizontal, 50)
+            
 
-            // ✉️ E-posta ile giriş
+            // Email entry
             Button(action: {
                 print("Email Login")
             }) {
-                Text("E-posta ile giriş yap")
-                    .font(.footnote)
+                Text("E-poçt ilə daxil ol")
+                    .font(.custom("Poppins-SemiBold", size: 20).bold())
                     .fontWeight(.medium)
                     .foregroundColor(Color.blue)
             }
@@ -281,3 +301,17 @@ struct BottomAuthView: View {
         .padding(.bottom, 30)
     }
 }
+
+// Laws View
+struct LawsView: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            
+            
+            
+            
+            
+        }
+    }
+}
+
