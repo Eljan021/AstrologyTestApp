@@ -18,6 +18,7 @@ struct AuthView: View {
             VStack{
                 Spacer()
                 BottomAuthView()
+                LawsView()
             }
     
         }
@@ -307,7 +308,13 @@ struct LawsView: View {
     var body: some View {
         VStack(spacing: 10) {
             
-            
+            HStack {
+                Text("və ya")
+                    .font(.custom("Poppins-SemiBold", size: 20).bold())
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 8)
+            }
+            .padding(.top, 5)
             
             
             
