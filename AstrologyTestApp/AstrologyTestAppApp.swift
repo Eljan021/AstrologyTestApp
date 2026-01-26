@@ -11,7 +11,7 @@ import SwiftUI
 struct AstrologyTestAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthView()
         }
     }
 }
