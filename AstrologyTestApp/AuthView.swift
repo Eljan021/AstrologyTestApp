@@ -305,20 +305,40 @@ struct BottomAuthView: View {
 
 // Laws View
 struct LawsView: View {
-    var body: some View {
-        VStack(spacing: 10) {
-            
-            HStack {
-                Text("və ya")
-                    .font(.custom("Poppins-SemiBold", size: 20).bold())
-                    .foregroundColor(.gray)
-                    .padding(.horizontal, 8)
+
+        var body: some View {
+            Text(attributedText)
+                .font(.custom("Poppins-Regular", size: 16))
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
+                .lineSpacing(0) // line-height 100%
+                .frame(width: 350)
+                .padding(.horizontal, 24)
+        }
+
+        var attributedText: AttributedString {
+            var text = AttributedString(
+                "Qeydiyyatdan keçmək ilə siz şərtlərimiz və məxfilik siyasətimiz ilə razılaşırsınız"
+            )
+
+            if let termsRange = text.range(of: "şərtlərimiz") {
+                text[termsRange].foregroundColor = .blue
+                text[termsRange].underlineStyle = .single
+                text[termsRange].link = URL(string: "terms://")
             }
-            .padding(.top, 5)
-            
-            
-            
+
+            if let privacyRange = text.range(of: "məxfilik siyasətimiz") {
+                text[privacyRange].foregroundColor = .blue
+                text[privacyRange].underlineStyle = .single
+                text[privacyRange].link = URL(string: "privacy://")
+            }
+
+            return text
         }
     }
-}
+
+
+
+
+    
 
