@@ -8,20 +8,48 @@
 import SwiftUI
 
 struct AuthView: View {
+    @State private var showTerms = false
+    @State private var showPrivacy = false
     var body: some View {
-        ZStack{
-            //                .ignoresSafeArea(.all)
-           BreathingAuraBackground()
-            TopView()// Frontground
-            VStack{
-                Spacer()
-                BottomAuthView()
-                LawsView()
+        
+            ZStack{
+                BreathingAuraBackground() // Background
+                TopView()// Frontground
+                VStack{
+                    Spacer()
+                    BottomAuthView()
+                    LawsView()
+                        .onOpenURL { url in
+                            if url.scheme == "terms" {
+                                showTerms = true
+                            } else if url.scheme == "privacy" {
+                                showPrivacy = true
+                            }
+                        }
+                }  .environment(\.openURL, OpenURLAction { url in
+                    switch url.scheme {
+                    case "terms":
+                        showTerms = true
+                        return .handled   // 
+                    case "privacy":
+                        showPrivacy = true
+                        return .handled
+                    default:
+                        return .systemAction
+                    }
+                })
+//                .sheet(isPresented: $showTerms) {
+//                    TermsView()
+//                }
+                
+                .sheet(isPresented: $showPrivacy) {
+                                    PrivacyView()
+                }
+                
             }
-    
         }
     }
-}
+
 
 // BreathingAura
 struct BreathingAuraBackground: View {
@@ -175,8 +203,7 @@ struct BottomAuthView: View {
 }
 
 // Laws View
-struct LawsView: View {
-
+struct LawsView: View{
         var body: some View {
             Text(attributedText)
                 .font(.custom("Poppins-Regular", size: 16))
