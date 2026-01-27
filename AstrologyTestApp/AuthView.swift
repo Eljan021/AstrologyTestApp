@@ -41,7 +41,9 @@ struct BreathingAuraBackground: View {
                 .scaleEffect(breathe ? 1.15 : 0.85)
                 .opacity(breathe ? 1.0 : 0.6)
                 .animation(
-                    .easeInOut(duration: 10).repeatForever(autoreverses: true),
+                    .spring(response: 3, dampingFraction: 0.6, blendDuration: 0.5)
+                            .repeatForever(autoreverses: true)
+                   /* .easeInOut(duration: 4).repeatForever(autoreverses: true)*/,
                     value: breathe
                 )
 
@@ -54,13 +56,13 @@ struct BreathingAuraBackground: View {
                 .scaleEffect(breathe ? 1.12 : 0.88)
                 .opacity(breathe ? 0.9 : 0.5)
                 .animation(
-                    .easeInOut(duration: 14).repeatForever(autoreverses: true),
+                    .easeInOut(duration: 8).repeatForever(autoreverses: true),
                     value: breathe
                 )
 
             // Half stare feel
             Circle()
-                .fill(Color.white.opacity(0.06))
+                .fill(Color.white.opacity(0.8))
                 .frame(width: 260, height: 260)
                 .blur(radius: 90)
                 .offset(x: 160, y: -180)
@@ -240,7 +242,7 @@ struct BottomAuthView: View {
             }) {
                 HStack {
                     Image(systemName: "applelogo")
-                    Text("Apple with entry")
+                    Text("Apple ilə Davam Et")
                         .fontWeight(.semibold)
                 }
                 .foregroundColor(.black)
@@ -259,7 +261,7 @@ struct BottomAuthView: View {
                         .resizable()
                         .frame(width: 20, height: 20)
 
-                    Text("Google with entry")
+                    Text("Google ilə Davam Et")
                         .fontWeight(.semibold)
                 }
                 .foregroundColor(.black)
