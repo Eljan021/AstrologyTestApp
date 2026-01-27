@@ -10,10 +10,8 @@ import SwiftUI
 struct AuthView: View {
     var body: some View {
         ZStack{
-            //            MysticalAstrologyView()// Background
             //                .ignoresSafeArea(.all)
-//            CalmMysticBackgroundView()
-            BreathingAuraBackground()
+           BreathingAuraBackground()
             TopView()// Frontground
             VStack{
                 Spacer()
@@ -69,135 +67,6 @@ struct BreathingAuraBackground: View {
         }
         .onAppear {
             breathe.toggle() // One toggle, all animations work here
-        }
-    }
-}
-
-
-
-
-struct CalmMysticBackgroundView: View {
-    @State private var animate = false
-
-    var body: some View {
-        ZStack {
-            // First gradient
-            LinearGradient(
-                colors: [
-                    Color.black,
-                    Color.purple.opacity(0.35),
-                    Color.indigo.opacity(0.25),
-                    Color.black
-                ],
-                startPoint: animate ? .topLeading : .bottomTrailing,
-                endPoint: animate ? .bottomTrailing : .topLeading
-            )
-            .animation(
-                .easeInOut(duration: 18).repeatForever(autoreverses: true),
-                value: animate
-            )
-
-            // Soft Light
-            Circle()
-                .fill(Color.purple.opacity(0.18))
-                .frame(width: 420, height: 420)
-                .blur(radius: 120)
-                .offset(x: animate ? -120 : 120, y: animate ? -200 : 200)
-                .animation(
-                    .easeInOut(duration: 22).repeatForever(autoreverses: true),
-                    value: animate
-                )
-
-            // Two light
-            Circle()
-                .fill(Color.indigo.opacity(0.15))
-                .frame(width: 300, height: 300)
-                .blur(radius: 100)
-                .offset(x: animate ? 140 : -140, y: animate ? 180 : -180)
-                .animation(
-                    .easeInOut(duration: 26).repeatForever(autoreverses: true),
-                    value: animate
-                )
-        }
-        .ignoresSafeArea()
-        .onAppear {
-            animate = true
-        }
-    }
-}
-
-
-struct MysticalAstrologyView: View {
-    @State private var rotateOuter = false
-    @State private var rotateInner = false
-    @State private var pulse = false
-
-    var body: some View {
-        ZStack {
-            // Dark Background
-            RadialGradient(
-                colors: [
-                    Color.black,
-                    Color.purple.opacity(0.4),
-                    Color.black
-                ],
-                center: .center,
-                startRadius: 50,
-                endRadius: 400
-            )
-            .ignoresSafeArea()
-
-            // Out ellipse (slow rotate)
-            Ellipse()
-                .stroke(
-                    AngularGradient(
-                        colors: [.purple, .pink, .indigo, .purple],
-                        center: .center
-                    ),
-                    lineWidth: 4
-                )
-                .frame(width: 260, height: 360)
-                .blur(radius: 1)
-                .shadow(color: .purple.opacity(0.8), radius: 20)
-                .rotationEffect(.degrees(rotateOuter ? 360 : 0))
-                .animation(
-                    .linear(duration: 18).repeatForever(autoreverses: false),
-                    value: rotateOuter
-                )
-
-            // In ellipse (fast)
-            Ellipse()
-                .stroke(
-                    LinearGradient(
-                        colors: [.indigo, .purple, .pink],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    ),
-                    lineWidth: 2
-                )
-                .frame(width: 180, height: 260)
-                .blur(radius: 0.5)
-                .shadow(color: .pink.opacity(0.7), radius: 12)
-                .rotationEffect(.degrees(rotateInner ? -360 : 0))
-                .animation(
-                    .linear(duration: 10).repeatForever(autoreverses: false),
-                    value: rotateInner
-                )
-
-            // (mistik aura)
-            Circle()
-                .fill(Color.purple.opacity(0.25))
-                .frame(width: pulse ? 60 : 40)
-                .blur(radius: 20)
-                .animation(
-                    .easeInOut(duration: 2).repeatForever(),
-                    value: pulse
-                )
-        }
-        .onAppear {
-            rotateOuter = true
-            rotateInner = true
-            pulse = true
         }
     }
 }
@@ -339,6 +208,7 @@ struct LawsView: View {
         }
     }
 
+// Color extension
 extension Color{
     init(hex: String, opacity: Double = 1.0) {
         let hex = hex.trimmingCharacters(in: .whitespacesAndNewlines)
