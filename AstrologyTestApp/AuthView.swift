@@ -31,11 +31,11 @@ struct BreathingAuraBackground: View {
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color.init(hex: "#EAF9FF").ignoresSafeArea()
 
             // Big purple aura
             Circle()
-                .fill(Color.purple.opacity(0.85))
+                .fill(Color(hex: "#5B2DA6", opacity: 0.65))
                 .frame(width: 600, height: 600)
                 .blur(radius: 140)
                 .scaleEffect(breathe ? 1.15 : 0.85)
@@ -47,7 +47,7 @@ struct BreathingAuraBackground: View {
 
             // Two layer
             Circle()
-                .fill(Color.indigo.opacity(0.18))
+                .fill(Color.black.opacity(0.18))
                 .frame(width: 420, height: 420)
                 .blur(radius: 120)
                 .offset(x: -120, y: 160)
@@ -309,7 +309,7 @@ struct LawsView: View {
         var body: some View {
             Text(attributedText)
                 .font(.custom("Poppins-Regular", size: 16))
-                .foregroundColor(.gray)
+                .foregroundColor(.black)
                 .multilineTextAlignment(.center)
                 .lineSpacing(0) // line-height 100%
                 .frame(width: 350)
@@ -322,13 +322,13 @@ struct LawsView: View {
             )
 
             if let termsRange = text.range(of: "şərtlərimiz") {
-                text[termsRange].foregroundColor = .blue
+                text[termsRange].foregroundColor = .black
                 text[termsRange].underlineStyle = .single
                 text[termsRange].link = URL(string: "terms://")
             }
 
             if let privacyRange = text.range(of: "məxfilik siyasətimiz") {
-                text[privacyRange].foregroundColor = .blue
+                text[privacyRange].foregroundColor = .black
                 text[privacyRange].underlineStyle = .single
                 text[privacyRange].link = URL(string: "privacy://")
             }
@@ -337,8 +337,25 @@ struct LawsView: View {
         }
     }
 
-
-
+extension Color{
+    init(hex: String, opacity: Double = 1.0) {
+        let hex = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        let scanner = Scanner(string: hex)
+        
+        if hex.hasPrefix("#") {
+            scanner.currentIndex = hex.index(after: hex.startIndex)
+        }
+        
+        var rgb: UInt64 = 0
+        scanner.scanHexInt64(&rgb)
+        
+        let r = Double((rgb >> 16) & 0xFF) / 255
+        let g = Double((rgb >> 8) & 0xFF) / 255
+        let b = Double(rgb & 0xFF) / 255
+        
+        self.init(.sRGB, red: r, green: g, blue: b, opacity: opacity)
+    }
+}
 
     
 
