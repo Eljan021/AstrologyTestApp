@@ -11,7 +11,10 @@ import SwiftUI
 struct AstrologyTestAppApp: App {
     var body: some Scene {
         WindowGroup {
-            AuthView()
+            NavigationStack{
+                RootView()
+            }
+            
         }
     }
 }
