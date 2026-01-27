@@ -13,11 +13,20 @@ struct SplashView: View {
     @State private var fillAmount: CGFloat = 1
     var body: some View {
         
-   
-        Color.init(hex: "#EAF9FF") // Figma desgin background color
-//        Image("Loading circle2")
-            .ignoresSafeArea()
-        
+        ZStack {
+            Color.init(hex: "#EAF9FF") // Figma desgin background color
+            //        Image("Loading circle2")
+                .ignoresSafeArea()
+            
+            VStack {
+                Image("AuralyLogo") // buraya üst logo adı
+                    .resizable()
+                    .frame(width: 274, height: 74)
+                    .padding(.top, 110) // üstten boşluk
+                Spacer()
+                
+            }
+        }
         Image("SplashLoading") // Assets’teki görsel adı
                   .resizable()
                   .frame(width: 200, height: 200)
