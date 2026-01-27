@@ -1,28 +1,28 @@
 //
-//  PrivacyView.swift
+//  TermsView.swift
 //  AstrologyTestApp
 //
-//  Created by Eljan on 27.01.26.
+//  Created by Eljan on 28.01.26.
 //
 
 import SwiftUI
 
-struct PrivacyView: View {
+struct TermsView: View {
     var body: some View {
         VStack {
-            Text("Məxvilik")
+            Text("Şərtlər")
                 .font(.title)
                 .padding()
             
             ScrollView {
-                Text("Privacy policy mətni olacaq...")
+                Text("Terms mətni olacaq...")
                     .padding()
             }
         }
-        
+
     }
 }
 
 #Preview {
-    PrivacyView()
+    TermsView()
 }

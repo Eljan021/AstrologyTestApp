@@ -30,7 +30,7 @@ struct AuthView: View {
                     switch url.scheme {
                     case "terms":
                         showTerms = true
-                        return .handled   // 
+                        return .handled   //
                     case "privacy":
                         showPrivacy = true
                         return .handled
@@ -38,9 +38,9 @@ struct AuthView: View {
                         return .systemAction
                     }
                 })
-//                .sheet(isPresented: $showTerms) {
-//                    TermsView()
-//                }
+              .sheet(isPresented: $showTerms) {
+                  TermsView()
+                }
                 
                 .sheet(isPresented: $showPrivacy) {
                                     PrivacyView()
