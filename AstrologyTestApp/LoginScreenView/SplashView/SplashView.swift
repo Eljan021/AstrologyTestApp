@@ -10,10 +10,10 @@ import SwiftUI
 struct SplashView: View {
     @State private var rotated = false
     @State private var showSecondLogo = false
-    
+    @State private var fillAmount: CGFloat = 1
     var body: some View {
         
-     
+   
         Color.init(hex: "#EAF9FF") // Figma desgin background color
 //        Image("Loading circle2")
             .ignoresSafeArea()
@@ -21,7 +21,7 @@ struct SplashView: View {
         Image("SplashLoading") // Assets’teki görsel adı
                   .resizable()
                   .frame(width: 200, height: 200)
-                  .rotationEffect(.degrees(rotated ? 30 : -30))
+                  .rotationEffect(.degrees(rotated ? 60 : -60))
                   .animation(
                     Animation.easeInOut(duration: 1)
                         .repeatCount(4, autoreverses: true),
@@ -30,8 +30,8 @@ struct SplashView: View {
                   .onAppear {
                       rotated.toggle()
                       // Dönme animasyonu bitince ikinci logoyu göster
-                                      DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                          withAnimation(.easeIn(duration: 0.5)) {
+                                      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                          withAnimation(.easeIn(duration: 0.8)) {
                                               showSecondLogo = true
                                           }
                                       }
@@ -40,7 +40,12 @@ struct SplashView: View {
                         Image("SplashLoading2") // ikinci logonun adı
                             .resizable()
                             .frame(width: 200, height: 200)
-                            .transition(.scale) // yavaşça belirme animasyonu
+                            .mask(
+                                               Rectangle()
+                                                   .scaleEffect(y: fillAmount, anchor: .bottom) // alt-kısım doluyor
+                                                   .animation(.easeIn(duration: 2), value: fillAmount))
+//                            .transition(.move(edge: .trailing).combined(with: .opacity))
+//                            .animation(.linear(duration: 4), value: showSecondLogo)
                     }
                 }
             }
