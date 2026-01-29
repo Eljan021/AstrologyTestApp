@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		92B6FD312F2BACA10003A808 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 92B6FD302F2BACA10003A808 /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		924203A02F23A53800C8C3C1 /* AstrologyTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstrologyTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92B6FD312F2BACA10003A808 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = AstrologyTestApp;
 			packageProductDependencies = (
+				92B6FD302F2BACA10003A808 /* Lottie */,
 			);
 			productName = AstrologyTestApp;
 			productReference = 924203A02F23A53800C8C3C1 /* AstrologyTestApp.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 924203972F23A53800C8C3C1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				92B6FD2F2F2BACA10003A808 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 924203A12F23A53800C8C3C1 /* Products */;
 			projectDirPath = "";
@@ -128,6 +137,7 @@
 		924203A92F23A53900C8C3C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -191,6 +201,7 @@
 		924203AA2F23A53900C8C3C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -338,6 +349,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		92B6FD2F2F2BACA10003A808 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		92B6FD302F2BACA10003A808 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92B6FD2F2F2BACA10003A808 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 924203982F23A53800C8C3C1 /* Project object */;
 }

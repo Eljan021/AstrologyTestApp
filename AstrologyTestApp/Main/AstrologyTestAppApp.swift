@@ -13,6 +13,7 @@ struct AstrologyTestAppApp: App {
         WindowGroup {
             NavigationStack{
                 RootView()
+//                    .preferredColorScheme(.dark)
             }
             
         }

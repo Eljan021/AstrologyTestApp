@@ -14,7 +14,7 @@ struct RootView: View {
     var body: some View {
         ZStack {
             if showSplash {
-                SplashView()
+                WaweTestView()
                     .transition(.opacity)
                     .zIndex(1)
             } else {
@@ -32,6 +32,7 @@ struct RootView: View {
         }
     }
 }
+
 #Preview {
     RootView()
 }
