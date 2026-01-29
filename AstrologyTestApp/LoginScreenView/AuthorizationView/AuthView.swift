@@ -51,96 +51,158 @@ struct AuthView: View {
     }
 
 
-// BreathingAura
+// MARK: Animation&Background
 struct BreathingAuraBackground: View {
     @State private var breathe = false
-    @Environment(\.colorScheme) var colorScheme
-    var backgroundColor: Color {
-        colorScheme == .dark
-        ? Color(hex: "#4A55A1")
-        : Color(hex: "#EAF9FF")
+    @Environment(\.colorScheme) private var colorScheme
+    private var backgroundGradient: LinearGradient {
+        if colorScheme == .dark {
+            return LinearGradient(
+                colors: [
+                    Color(hex: "#4A55A1"),//Background Dark Mode
+                    Color(hex: "#1B1F3B")
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        } else {
+            return LinearGradient(
+                colors: [
+                    Color(hex: "#EAF9FF"),//Background Light Mode
+                    Color(hex: "#EAF9FF")
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
     }
-    var animationBackgroundColor: Color{
-        colorScheme == .dark
-        ? Color (hex: "")
-        : Color (hex: "#4A55A1")
+
+    private var mainAura: some View {
+        Circle()
+            .fill(
+                RadialGradient(
+                    colors: colorScheme == .dark
+                    ? [
+                        Color(hex: "#1B1F3B").opacity(40),// Animation Dark Mode
+                        Color(hex: "#4A55A1").opacity(40)
+                      ]
+                    : [
+                        Color(hex: "#4A55A1").opacity(30),//Animation Light Mode
+                        Color(hex: "#1B1F3B").opacity(30)
+                      ],
+                    center: .center,
+                    startRadius: 10,
+                    endRadius: 300
+                )
+            )
+            .frame(width: 600, height: 600)
+            .blur(radius: 140)
+            .scaleEffect(breathe ? 1.15 : 0.85)
+            .animation(
+                .spring(response: 3, dampingFraction: 0.6)
+                    .repeatForever(autoreverses: true),
+                value: breathe
+            )
     }
+
+    private var secondaryAura: some View {
+        Circle()
+            .fill(
+                RadialGradient(
+                    colors: [
+                        Color.white.opacity(colorScheme == .dark ? 0.35 : 0.15),
+                        .clear
+                    ],
+                    center: .center,
+                    startRadius: 20,
+                    endRadius: 220
+                )
+            )
+            .frame(width: 420, height: 420)
+            .blur(radius: 120)
+            .offset(x: -120, y: 160)
+            .scaleEffect(breathe ? 1.12 : 0.88)
+            .opacity(breathe ? 0.9 : 0.5)
+            .animation(
+                .easeInOut(duration: 12)
+                    .repeatForever(autoreverses: true),
+                value: breathe
+            )
+    }
+    private var highlightAura: some View {
+        Circle()
+            .fill(
+                RadialGradient(
+                    colors: [
+                        Color(hex: "#4A55A1"),
+                        .clear
+                    ],
+                    center: .center,
+                    startRadius: 10,
+                    endRadius: 160
+                )
+            )
+            .frame(width: 260, height: 260)
+            .blur(radius: 90)
+            .offset(x: 160, y: -180)
+    }
+
+    
+    
     var body: some View {
         
         ZStack {
-//            Color.init(hex: "#EAF9FF").ignoresSafeArea()
-            backgroundColor.ignoresSafeArea()
-            // Big purple aura
-            Circle()
-                .fill(animationBackgroundColor)
-               
-                .frame(width: 600, height: 600)
-                .blur(radius: 140)
-                .scaleEffect(breathe ? 1.15 : 0.85)
-                .opacity(breathe ? 1.0 : 0.6)
-                .animation(
-                    .spring(response: 3, dampingFraction: 0.6, blendDuration: 0.5)
-                            .repeatForever(autoreverses: true)
-                   /* .easeInOut(duration: 4).repeatForever(autoreverses: true)*/,
-                    value: breathe
-                )
+            backgroundGradient
+                .ignoresSafeArea()
 
-            // Two layer
-            Circle()
-                .fill(Color.black.opacity(0.18))
-                .frame(width: 420, height: 420)
-                .blur(radius: 120)
-                .offset(x: -120, y: 160)
-                .scaleEffect(breathe ? 1.12 : 0.88)
-                .opacity(breathe ? 0.9 : 0.5)
-                .animation(
-                    .easeInOut(duration: 8).repeatForever(autoreverses: true),
-                    value: breathe
-                )
-
-            // Half stare feel
-            Circle()
-                .fill(Color.white.opacity(0.8))
-                .frame(width: 260, height: 260)
-                .blur(radius: 90)
-                .offset(x: 160, y: -180)
+            mainAura
+            secondaryAura
+            highlightAura
         }
+        
         .onAppear {
-            breathe.toggle() // One toggle, all animations work here
+            breathe.toggle()
         }
     }
 }
 
-// Topview
+// MARK: Topview
 struct TopView: View {
-    var body: some View{
-        VStack{
-            ZStack{
+    @Environment(\.colorScheme) private var colorScheme
+
+    var body: some View {
+        VStack {
+            ZStack {
                 Circle()
-                    .fill(Color.purple.opacity(0.08))
+                    .fill(Color.white.opacity(0.08))
                     .frame(width: 220, height: 220)
                     .blur(radius: 40)
-                
-                Image("auraly")// Logo image code
+
+                Image(colorScheme == .dark ? "auraly_dark" : "auraly_light")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 274,height: 124)
-                    .shadow(color: .white.opacity(0.8), radius: 20)
+                    .frame(width: 274, height: 124)
+                    .shadow(
+                        color: colorScheme == .dark
+                        ? .white.opacity(0.8)
+                        : .black.opacity(0.15),
+                        radius: 20
+                    )
             }
-            .padding(.top, 60)// Location logo
-                Spacer()
-                
-            
+            .padding(.top, 60)
+
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
+
 #Preview {
     AuthView()
 }
 
-//Bottom view
+// MARK: Bottom view
 struct BottomAuthView: View {
     var body: some View {
         VStack(spacing: 10) {
@@ -214,7 +276,7 @@ struct BottomAuthView: View {
     }
 }
 
-// Laws View
+// MARK: Laws View
 struct LawsView: View{
         var body: some View {
             Text(attributedText)
