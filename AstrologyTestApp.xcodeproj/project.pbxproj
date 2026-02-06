@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		920681D02F3698E1002379BF /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 920681CF2F3698E1002379BF /* FirebaseAnalytics */; };
+		920681D22F3698E1002379BF /* FirebaseAnalyticsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 920681D12F3698E1002379BF /* FirebaseAnalyticsCore */; };
+		920681D42F3698E1002379BF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 920681D32F3698E1002379BF /* FirebaseAuth */; };
+		920681D62F3698E1002379BF /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 920681D52F3698E1002379BF /* FirebaseCore */; };
+		920681D92F369AAF002379BF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 920681D82F369AAF002379BF /* GoogleSignIn */; };
+		920681DB2F369AAF002379BF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 920681DA2F369AAF002379BF /* GoogleSignInSwift */; };
 		92B6FD312F2BACA10003A808 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 92B6FD302F2BACA10003A808 /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -14,9 +20,22 @@
 		924203A02F23A53800C8C3C1 /* AstrologyTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstrologyTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		929972F32F36A2B900A8127D /* Exceptions for "AstrologyTestApp" folder in "AstrologyTestApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9242039F2F23A53800C8C3C1 /* AstrologyTestApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		924203A22F23A53800C8C3C1 /* AstrologyTestApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				929972F32F36A2B900A8127D /* Exceptions for "AstrologyTestApp" folder in "AstrologyTestApp" target */,
+			);
 			path = AstrologyTestApp;
 			sourceTree = "<group>";
 		};
@@ -27,7 +46,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				920681D02F3698E1002379BF /* FirebaseAnalytics in Frameworks */,
+				920681D62F3698E1002379BF /* FirebaseCore in Frameworks */,
+				920681DB2F369AAF002379BF /* GoogleSignInSwift in Frameworks */,
+				920681D22F3698E1002379BF /* FirebaseAnalyticsCore in Frameworks */,
 				92B6FD312F2BACA10003A808 /* Lottie in Frameworks */,
+				920681D42F3698E1002379BF /* FirebaseAuth in Frameworks */,
+				920681D92F369AAF002379BF /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +96,12 @@
 			name = AstrologyTestApp;
 			packageProductDependencies = (
 				92B6FD302F2BACA10003A808 /* Lottie */,
+				920681CF2F3698E1002379BF /* FirebaseAnalytics */,
+				920681D12F3698E1002379BF /* FirebaseAnalyticsCore */,
+				920681D32F3698E1002379BF /* FirebaseAuth */,
+				920681D52F3698E1002379BF /* FirebaseCore */,
+				920681D82F369AAF002379BF /* GoogleSignIn */,
+				920681DA2F369AAF002379BF /* GoogleSignInSwift */,
 			);
 			productName = AstrologyTestApp;
 			productReference = 924203A02F23A53800C8C3C1 /* AstrologyTestApp.app */;
@@ -102,6 +133,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				92B6FD2F2F2BACA10003A808 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				920681CE2F3698E1002379BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				920681D72F369AAF002379BF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 924203A12F23A53800C8C3C1 /* Products */;
@@ -266,6 +299,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AstrologyTestApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Auraly;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -278,7 +312,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.atl.AstrologyTestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eljan.AstrologyTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -302,6 +336,7 @@
 				DEVELOPMENT_TEAM = UBF8Y35H4W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AstrologyTestApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Auraly;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -351,6 +386,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		920681CE2F3698E1002379BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.9.0;
+			};
+		};
+		920681D72F369AAF002379BF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
 		92B6FD2F2F2BACA10003A808 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -362,6 +413,36 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		920681CF2F3698E1002379BF /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 920681CE2F3698E1002379BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		920681D12F3698E1002379BF /* FirebaseAnalyticsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 920681CE2F3698E1002379BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsCore;
+		};
+		920681D32F3698E1002379BF /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 920681CE2F3698E1002379BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		920681D52F3698E1002379BF /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 920681CE2F3698E1002379BF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		920681D82F369AAF002379BF /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 920681D72F369AAF002379BF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		920681DA2F369AAF002379BF /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 920681D72F369AAF002379BF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		92B6FD302F2BACA10003A808 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 92B6FD2F2F2BACA10003A808 /* XCRemoteSwiftPackageReference "lottie-spm" */;

@@ -10,14 +10,25 @@ import SwiftUI
 struct AuthView: View {
     @State private var showTerms = false
     @State private var showPrivacy = false
+    @State private var isLoggedIn = false // giriş durumu
+
     var body: some View {
-        
-            ZStack{
+        NavigationStack { // ← burası eklendi
+            ZStack {
                 BreathingAuraBackground() // Background
                 TopView()// Frontground
                 VStack{
                     Spacer()
-                    BottomAuthView()
+                    BottomAuthView { // Google button action closure
+                        AuthManager.shared.signInWithGoogle { result in
+                            switch result {
+                            case .success:
+                                isLoggedIn = true // HomeView’a geçiş
+                            case .failure(let error):
+                                print("Google Login Error:", error.localizedDescription)
+                            }
+                        }
+                    }
                     LawsView()
                         .onOpenURL { url in
                             if url.scheme == "terms" {
@@ -26,29 +37,18 @@ struct AuthView: View {
                                 showPrivacy = true
                             }
                         }
-                }  .environment(\.openURL, OpenURLAction { url in
-                    switch url.scheme {
-                    case "terms":
-                        showTerms = true
-                        return .handled   //
-                    case "privacy":
-                        showPrivacy = true
-                        return .handled
-                    default:
-                        return .systemAction
-                    }
-                })
-              .sheet(isPresented: $showTerms) {
-                  TermsView()
                 }
-                
-                .sheet(isPresented: $showPrivacy) {
-                                    PrivacyView()
-                }
-                
+            }
+            .sheet(isPresented: $showTerms) { TermsView() }
+            .sheet(isPresented: $showPrivacy) { PrivacyView() }
+            // ← navigationDestination burada
+            .navigationDestination(isPresented: $isLoggedIn) {
+                GoogleView() // girişten sonra gidilecek ekran
             }
         }
     }
+}
+
 
 
 // MARK: Animation&Background
@@ -204,7 +204,9 @@ struct TopView: View {
 
 // MARK: Bottom view
 struct BottomAuthView: View {
+    var onGoogleTap: () -> Void
     var body: some View {
+        
         VStack(spacing: 10) {
 
             // Apple with entry
@@ -225,6 +227,7 @@ struct BottomAuthView: View {
 
             // Google with entry
             Button(action: {
+                onGoogleTap()
                 print("Google Login")
             }) {
                 HStack {
