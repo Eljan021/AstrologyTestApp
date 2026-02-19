@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 struct AuthView: View {
     @State private var showTerms = false
@@ -19,16 +20,7 @@ struct AuthView: View {
                 TopView()// Frontground
                 VStack{
                     Spacer()
-                    BottomAuthView { // Google button action closure
-                        AuthManager.shared.signInWithGoogle { result in
-                            switch result {
-                            case .success:
-                                isLoggedIn = true // HomeView’a geçiş
-                            case .failure(let error):
-                                print("Google Login Error:", error.localizedDescription)
-                            }
-                        }
-                    }
+                    BottomAuthView()
                     LawsView()
                         .onOpenURL { url in
                             if url.scheme == "terms" {
@@ -43,7 +35,6 @@ struct AuthView: View {
             .sheet(isPresented: $showPrivacy) { PrivacyView() }
             // ← navigationDestination burada
             .navigationDestination(isPresented: $isLoggedIn) {
-                GoogleView() // girişten sonra gidilecek ekran
             }
         }
     }
@@ -201,10 +192,46 @@ struct TopView: View {
 #Preview {
     AuthView()
 }
+func getRootViewController() -> UIViewController? {
+    guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+          let rootViewController = scene.windows.first?.rootViewController else {
+        return nil
+    }
+    return getVisibleViewController(from: rootViewController)
+}
+
+private func getVisibleViewController(from vc: UIViewController) -> UIViewController {
+    if let nav = vc as? UINavigationController {
+        return getVisibleViewController(from: nav.visibleViewController!)
+    }
+    if let tab = vc as? UITabBarController {
+        return getVisibleViewController(from: tab.selectedViewController!)
+    }
+    if let presented = vc.presentedViewController {
+        return getVisibleViewController(from: presented)
+    }
+    return vc
+}
+
 
 // MARK: Bottom view
 struct BottomAuthView: View {
-    var onGoogleTap: () -> Void
+    func handleSignUpButton(){
+        print("Sign up button tapped")
+        if let rootViewController = getRootViewController(){
+            GIDSignIn.sharedInstance.signIn(
+                withPresenting: rootViewController)
+            {result, error in
+                guard let result else {
+                    return
+                }
+                print(result.user.profile?.name)
+                print(result.user.profile?.email)
+                print(result.user.profile?.imageURL(withDimension: 200))
+            }
+        }
+    
+    }
     var body: some View {
         
         VStack(spacing: 10) {
@@ -227,9 +254,9 @@ struct BottomAuthView: View {
 
             // Google with entry
             Button(action: {
-                onGoogleTap()
+                handleSignUpButton()
                 print("Google Login")
-            }) {
+            }){
                 HStack {
                     Image("google") // asset’te google icon
                         .resizable()
