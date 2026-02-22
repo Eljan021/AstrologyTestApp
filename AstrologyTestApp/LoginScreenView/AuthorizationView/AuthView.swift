@@ -27,8 +27,8 @@ struct AuthView: View {
                      
                 }
             }
-            .sheet(isPresented: $showTerms) { TermsView() }
-            .sheet(isPresented: $showPrivacy) { PrivacyView() }
+            .navigationDestination(isPresented: $showTerms) { TermsView() }
+            .navigationDestination(isPresented: $showPrivacy) { PrivacyView() }
             // ← navigationDestination burada
             .navigationDestination(isPresented: $isLoggedIn) {
                 LoggedView()
