@@ -8,11 +8,13 @@
 import SwiftUI
 import GoogleSignIn
 
+
+
 struct AuthView: View {
     @State private var showTerms = false
     @State private var showPrivacy = false
     @State private var isLoggedIn = false // giriş durumu
-
+    
     var body: some View {
         NavigationStack { // ← burası eklendi
             ZStack {
@@ -20,7 +22,7 @@ struct AuthView: View {
                 TopView()// Frontground
                 VStack{
                     Spacer()
-                    BottomAuthView()
+                    BottomAuthView(isLoggedIn: $isLoggedIn)
                     LawsView()
                         .onOpenURL { url in
                             if url.scheme == "terms" {
@@ -35,10 +37,19 @@ struct AuthView: View {
             .sheet(isPresented: $showPrivacy) { PrivacyView() }
             // ← navigationDestination burada
             .navigationDestination(isPresented: $isLoggedIn) {
+                LoggedView()
             }
         }
     }
-}
+    func googleSignIn() {
+           // Buraya Google Sign In kodun gelecek
+           
+           // Giriş başarılı olunca:
+           DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+               isLoggedIn = true
+           }
+       }
+   }
 
 
 
@@ -192,6 +203,8 @@ struct TopView: View {
 #Preview {
     AuthView()
 }
+
+//MARK: RootVierController for SignIn
 func getRootViewController() -> UIViewController? {
     guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
           let rootViewController = scene.windows.first?.rootViewController else {
@@ -216,26 +229,38 @@ private func getVisibleViewController(from vc: UIViewController) -> UIViewContro
 
 // MARK: Bottom view
 struct BottomAuthView: View {
+    @Binding var isLoggedIn: Bool
     func handleSignUpButton(){
         print("Sign up button tapped")
         if let rootViewController = getRootViewController(){
-            GIDSignIn.sharedInstance.signIn(
-                withPresenting: rootViewController)
-            {result, error in
-                guard let result else {
+            GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { result, error in
+                
+                if let error = error {
+                    print("Login error:", error.localizedDescription)
                     return
                 }
-                print(result.user.profile?.name)
-                print(result.user.profile?.email)
-                print(result.user.profile?.imageURL(withDimension: 200))
+                
+                guard let result = result else {
+                    print("No result")
+                    return
+                }
+                
+                let user = result.user
+                
+                print(user.profile?.name ?? "")
+                print(user.profile?.email ?? "")
+                
+                DispatchQueue.main.async {
+                    isLoggedIn = true
+                }
             }
         }
-    
+        
     }
     var body: some View {
         
         VStack(spacing: 10) {
-
+            
             // Apple with entry
             Button(action: {
                 print("Apple Login")
@@ -251,7 +276,7 @@ struct BottomAuthView: View {
                 .overlay(RoundedRectangle(cornerRadius: 60)
                     .stroke(Color.black, lineWidth: 0.75))
             }
-
+            
             // Google with entry
             Button(action: {
                 handleSignUpButton()
@@ -261,7 +286,7 @@ struct BottomAuthView: View {
                     Image("google") // asset’te google icon
                         .resizable()
                         .frame(width: 20, height: 20)
-
+                    
                     Text("Google ilə Davam Et")
                         .fontWeight(.semibold)
                 }
@@ -273,23 +298,23 @@ struct BottomAuthView: View {
             }
             
             // --- OR line
-                        HStack {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.4))
-                                .frame(height: 1)
-                                .frame(width: 150)
-                            Text("və ya")
-                                .font(.custom("Poppins-SemiBold", size: 20).bold())
-                                .foregroundColor(.gray)
-                                .padding(.horizontal, 8)
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.4))
-                                .frame(height: 1)
-                                .frame(width: 150)
-                        }
-                        .padding(.horizontal, 50)
+            HStack {
+                Rectangle()
+                    .fill(Color.gray.opacity(0.4))
+                    .frame(height: 1)
+                    .frame(width: 150)
+                Text("və ya")
+                    .font(.custom("Poppins-SemiBold", size: 20).bold())
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 8)
+                Rectangle()
+                    .fill(Color.gray.opacity(0.4))
+                    .frame(height: 1)
+                    .frame(width: 150)
+            }
+            .padding(.horizontal, 50)
             
-
+            
             // Email entry
             Button(action: {
                 print("Email Login")
