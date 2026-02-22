@@ -7,14 +7,12 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct PrivacyView: View {
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                
+                Text("🔒 MƏXFİLİK SİYASƏTİ (Privacy Policy)")
                 Text("Son yenilənmə tarixi: 25.02.2026")
                     .font(.footnote)
                     .foregroundColor(.gray)

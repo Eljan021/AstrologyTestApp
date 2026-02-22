@@ -23,14 +23,8 @@ struct AuthView: View {
                 VStack{
                     Spacer()
                     BottomAuthView(isLoggedIn: $isLoggedIn)
-                    LawsView()
-                        .onOpenURL { url in
-                            if url.scheme == "terms" {
-                                showTerms = true
-                            } else if url.scheme == "privacy" {
-                                showPrivacy = true
-                            }
-                        }
+                    LawsView(showTerms: $showTerms, showPrivacy: $showPrivacy)
+                     
                 }
             }
             .sheet(isPresented: $showTerms) { TermsView() }
@@ -332,38 +326,44 @@ struct BottomAuthView: View {
 }
 
 // MARK: Laws View
-struct LawsView: View{
-        var body: some View {
-            Text(attributedText)
+struct LawsView: View {
+    @Binding var showTerms: Bool
+    @Binding var showPrivacy: Bool
+
+    var body: some View {
+        VStack(spacing: 0) { // spacing:0 ile tek satır gibi görünür
+            Text("Qeydiyyatdan keçmək ilə siz ")
                 .font(.custom("Poppins-Regular", size: 16))
                 .foregroundColor(.black)
                 .multilineTextAlignment(.center)
-                .lineSpacing(0) // line-height 100%
-                .frame(width: 350)
-                .padding(.horizontal, 24)
-        }
+                .lineSpacing(0)
 
-        var attributedText: AttributedString {
-            var text = AttributedString(
-                "Qeydiyyatdan keçmək ilə siz şərtlərimiz və məxfilik siyasətimiz ilə razılaşırsınız"
-            )
-
-            if let termsRange = text.range(of: "şərtlərimiz") {
-                text[termsRange].foregroundColor = .black
-                text[termsRange].underlineStyle = .single
-                text[termsRange].link = URL(string: "terms://")
+            HStack(spacing: 0) {
+                Button(action: { showTerms = true }) {
+                    Text("şərtlərimiz")
+                        .underline()
+                        .foregroundColor(.black)
+                        .font(.custom("Poppins-Regular", size: 16))
+                }
+                Text(" və ")
+                    .font(.custom("Poppins-Regular", size: 16))
+                    .foregroundColor(.black)
+                Button(action: { showPrivacy = true }) {
+                    Text("məxfilik siyasətimiz")
+                        .underline()
+                        .foregroundColor(.black)
+                        .font(.custom("Poppins-Regular", size: 16))
+                }
             }
-
-            if let privacyRange = text.range(of: "məxfilik siyasətimiz") {
-                text[privacyRange].foregroundColor = .black
-                text[privacyRange].underlineStyle = .single
-                text[privacyRange].link = URL(string: "privacy://")
-            }
-
-            return text
+            Text(" ilə razılaşırsınız")
+                .font(.custom("Poppins-Regular", size: 16))
+                .foregroundColor(.black)
         }
+        .multilineTextAlignment(.center)
+        .frame(width: 350, height: 68)
+        .padding(.horizontal, 24)
     }
-
+}
 // Color extension
 
 extension Color {
