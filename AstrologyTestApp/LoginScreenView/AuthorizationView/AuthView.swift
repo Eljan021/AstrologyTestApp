@@ -262,10 +262,11 @@ struct BottomAuthView: View {
                 HStack {
                     Image(systemName: "applelogo")
                     Text("Apple ilə Davam Et")
-                        .fontWeight(.semibold)
+                        .font(.custom("Poppins-SemiBold", size: 20))
+                        
                 }
                 .foregroundColor(.black)
-                .frame(maxWidth: 390, maxHeight: 50)
+                .frame(maxWidth: 380, maxHeight: 50)
                 .background(Color.clear)
                 .overlay(RoundedRectangle(cornerRadius: 60)
                     .stroke(Color.black, lineWidth: 0.75))
@@ -282,10 +283,11 @@ struct BottomAuthView: View {
                         .frame(width: 20, height: 20)
                     
                     Text("Google ilə Davam Et")
-                        .fontWeight(.semibold)
+                        .font(.custom("Poppins-SemiBold", size: 20))
+                     
                 }
                 .foregroundColor(.black)
-                .frame(maxWidth: 390, maxHeight: 50)
+                .frame(maxWidth: 380, maxHeight: 50)
                 .background(Color.clear)
                 .overlay(RoundedRectangle(cornerRadius: 60)
                     .stroke(Color.black, lineWidth: 0.75))

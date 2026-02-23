@@ -9,10 +9,14 @@ import SwiftUI
 
 struct LoggedView: View {
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack{
             BreathingAuraBackground()
-            BottomNameBorder()
-               
+            VStack{
+                Spacer()
+                TopViewLogo()
+                TopViewText()
+                BottomNameBorder()
+            }
         }
     }
 }
@@ -77,5 +81,36 @@ struct BottomNameBorder: View {
         }
         .padding(.top, 40)
         .background(Color.clear) // 🔥 Stack tamamen şeffaf
+    }
+}
+
+
+struct TopViewLogo: View {
+    var body: some View {
+        ZStack{
+            VStack{
+                Image("Frame 139")
+                    .frame(width: 228,height: 295)
+                    .scaledToFit()
+                    
+            }
+        }
+        .padding(.top, 32)
+        Spacer()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+}
+
+struct TopViewText: View {
+    var body: some View {
+        ZStack{
+            VStack{
+                Text("Məlumatlarını Daxil Et")
+                    .font(.custom("Poppins-Regular", size: 24))
+                   
+            }
+        }
+    
     }
 }

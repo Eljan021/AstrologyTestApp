@@ -15,7 +15,7 @@ struct AstrologyTestAppApp: App {
         WindowGroup {
             NavigationStack{
                 RootView()
-                    .preferredColorScheme(.light)
+                    .preferredColorScheme(.dark)
                     .onOpenURL{url in
                         GIDSignIn.sharedInstance.handle(url)
                     }
