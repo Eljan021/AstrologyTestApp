@@ -224,6 +224,7 @@ private func getVisibleViewController(from vc: UIViewController) -> UIViewContro
 // MARK: Bottom view
 struct BottomAuthView: View {
     @Binding var isLoggedIn: Bool
+    @Environment(\.colorScheme) var colorScheme
     func handleSignUpButton(){
         print("Sign up button tapped")
         if let rootViewController = getRootViewController(){
@@ -251,58 +252,103 @@ struct BottomAuthView: View {
         }
         
     }
+    
     var body: some View {
         
-        VStack(spacing: 10) {
+        VStack(spacing: 20) {
             
-            // Apple with entry
+            // Apple Login
             Button(action: {
                 print("Apple Login")
             }) {
                 HStack {
                     Image(systemName: "applelogo")
+                        .frame(width: 24, height: 24)
+                    
                     Text("Apple ilə Davam Et")
                         .font(.custom("Poppins-SemiBold", size: 20))
-                        
                 }
-                .foregroundColor(.black)
-                .frame(maxWidth: 380, maxHeight: 50)
-                .background(Color.clear)
-                .overlay(RoundedRectangle(cornerRadius: 60)
-                    .stroke(Color.black, lineWidth: 0.75))
+                .foregroundStyle(colorScheme == .dark ? .white : .black)
+                .frame(maxWidth: 380)
+                .frame(height: 50)
+                .background {
+                    if colorScheme == .dark {
+                        RoundedRectangle(cornerRadius: 60)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                    RoundedRectangle(cornerRadius: 60)
+                                        .strokeBorder(Color(hex: "4A55A1"), lineWidth: 1)
+                                        .fill(Color(hex: "4A55A1").opacity(0.4)))
+                    } else {
+                        RoundedRectangle(cornerRadius: 60)
+                            .fill(Color.clear)
+                    }
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 60)
+                        .stroke(
+                            colorScheme == .dark
+                            ? Color.white.opacity(0.15)
+                            : Color.black,
+                            lineWidth: 0.75
+                        )
+                )
             }
             
-            // Google with entry
+            
+            // Google Login
             Button(action: {
                 handleSignUpButton()
                 print("Google Login")
-            }){
+            }) {
                 HStack {
-                    Image("google") // asset’te google icon
+                    Image("google")
                         .resizable()
                         .frame(width: 20, height: 20)
                     
                     Text("Google ilə Davam Et")
                         .font(.custom("Poppins-SemiBold", size: 20))
-                     
                 }
-                .foregroundColor(.black)
-                .frame(maxWidth: 380, maxHeight: 50)
-                .background(Color.clear)
-                .overlay(RoundedRectangle(cornerRadius: 60)
-                    .stroke(Color.black, lineWidth: 0.75))
+                .foregroundStyle(colorScheme == .dark ? .white : .black)
+                .frame(maxWidth: 380)
+                .frame(height: 50)
+                .background {
+                    if colorScheme == .dark {
+                        RoundedRectangle(cornerRadius: 60)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                    RoundedRectangle(cornerRadius: 60)
+                                        .strokeBorder(Color(hex: "4A55A1"), lineWidth: 1)
+                                        .fill(Color(hex: "4A55A1").opacity(0.4)))
+                    } else {
+                        RoundedRectangle(cornerRadius: 60)
+                            .fill(Color.clear)
+                    }
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 60)
+                        .stroke(
+                            colorScheme == .dark
+                            ? Color.white.opacity(0.15)
+                            : Color.black,
+                            lineWidth: 0.75
+                        )
+                )
             }
             
-            // --- OR line
+            
+            // OR line
             HStack {
                 Rectangle()
                     .fill(Color.gray.opacity(0.4))
                     .frame(height: 1)
                     .frame(width: 150)
+                
                 Text("və ya")
                     .font(.custom("Poppins-SemiBold", size: 20).bold())
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
                     .padding(.horizontal, 8)
+                
                 Rectangle()
                     .fill(Color.gray.opacity(0.4))
                     .frame(height: 1)
@@ -311,59 +357,57 @@ struct BottomAuthView: View {
             .padding(.horizontal, 50)
             
             
-            // Email entry
+            // Email Login
             Button(action: {
                 print("Email Login")
             }) {
                 Text("E-poçt ilə daxil ol")
-                    .font(.custom("Poppins-SemiBold", size: 20).bold())
-                    .fontWeight(.medium)
-                    .foregroundColor(Color.blue)
+                    .font(.custom("Poppins-SemiBold", size: 20))
+                    .foregroundStyle(.blue)
             }
             .padding(.top, 6)
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 30)
-    }
-}
+    }}
 
 // MARK: Laws View
 struct LawsView: View {
     @Binding var showTerms: Bool
     @Binding var showPrivacy: Bool
-
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         VStack(spacing: 0) { // spacing:0 ile tek satır gibi görünür
             Text("Qeydiyyatdan keçmək ilə siz ")
                 .font(.custom("Poppins-Regular", size: 16))
-                .foregroundColor(.black)
+                .foregroundStyle(colorScheme == .dark ? .white : .black )
                 .multilineTextAlignment(.center)
                 .lineSpacing(0)
 
             HStack(spacing: 0) {
                 Button(action: { showTerms = true }) {
                     Text("şərtlərimiz")
+                        .foregroundStyle(colorScheme == .dark ? .white : .black )
                         .underline()
-                        .foregroundColor(.black)
                         .font(.custom("Poppins-Regular", size: 16))
                 }
                 Text(" və ")
                     .font(.custom("Poppins-Regular", size: 16))
-                    .foregroundColor(.black)
+                    .foregroundStyle(colorScheme == .dark ? .white : .black )
                 Button(action: { showPrivacy = true }) {
                     Text("məxfilik siyasətimiz")
+                        .foregroundStyle(colorScheme == .dark ? .white : .black )
                         .underline()
-                        .foregroundColor(.black)
                         .font(.custom("Poppins-Regular", size: 16))
                 }
             }
             Text(" ilə razılaşırsınız")
+                .foregroundStyle(colorScheme == .dark ? .white : .black )
                 .font(.custom("Poppins-Regular", size: 16))
-                .foregroundColor(.black)
         }
         .multilineTextAlignment(.center)
         .frame(width: 350, height: 68)
-        .padding(.horizontal, 24)
+        .padding(.bottom, 0)
     }
 }
 // Color extension

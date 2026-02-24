@@ -39,7 +39,7 @@ struct BottomNameBorder: View {
                 
                 if text.isEmpty {
                     Text("Adınızı daxil edin")
-                        .foregroundColor(Color(hex: "EAF9FF"))
+                        .foregroundColor(.gray)
                         .padding(.leading, 25)
                 }
                 TextField("", text: $text)
@@ -65,6 +65,7 @@ struct BottomNameBorder: View {
                 Text("Təsdiq et")
                     .foregroundColor(.white)
                     .fontWeight(.regular)
+                    .font(.system(size: 26))
                     .frame(width: 184, height: 60)
                     .background(
                         RoundedRectangle(cornerRadius: 25)
